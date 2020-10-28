@@ -8,7 +8,7 @@ function isEmpty(arr) {
 }
 
 // This function filters out every animal that does not match the string pattern
-function removeNonMatching(searchedStr, person) {
+const removeNonMatching = (searchedStr, person) => {
     return person.animals.map((animal) => {
         if (animal.name.includes(searchedStr)) {
             return animal;
@@ -16,7 +16,7 @@ function removeNonMatching(searchedStr, person) {
     }).filter(e => e)
 }
 
-function filter(searchedStr) {
+export const filter = (searchedStr) => {
     const newList = data.filter(country => {
         let newCountry = country
         newCountry.people = country.people.filter(person => {
@@ -33,10 +33,10 @@ function filter(searchedStr) {
 
     // prints out the filtered list if there is any match
     console.log((!isEmpty(newList)) ? 'Nothing found' : JSON.stringify(newList))
-    return newList
+    return (!isEmpty(newList)) ? 'Nothing found' : JSON.stringify(newList)
 }
 
-function count() {
+export const count = () => {
     const newList = data.map((country) => {
         country.people.map((person) => {
             person.name = `${person.name} [${person.animals.length}]`
@@ -46,17 +46,21 @@ function count() {
         return country
     })
     console.log(JSON.stringify(newList))
-    return newList
+    return JSON.stringify(newList)
 }
 
 // USAGE: node app.js --filter=[PATTERN] OR node app.js filter=[PATTERN]
 // USAGE: node app.js --count OR node app.js count
 
-const cmd = args[2].split("=");
-if (cmd[0] === '--filter' || cmd[0] === 'filter') {
-    filter(cmd[1])
-} else if (cmd[0] === '--count' || cmd[0] === 'count') {
-    count()
-} else {
-    console.log('Wrong arguments')
+try {
+    const cmd = args[2].split("=");
+    if (cmd[0] === '--filter' || cmd[0] === 'filter') {
+        filter(cmd[1])
+    } else if (cmd[0] === '--count' || cmd[0] === 'count') {
+        count()
+    } else {
+        console.log('Wrong arguments')
+    }
+} catch(err) {
+    throw err
 }
