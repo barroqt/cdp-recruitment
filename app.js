@@ -1,8 +1,6 @@
 import data from './data.js'
 'use strict'
 
-import process from 'process'
-
 const args = process.argv
 
 function isEmpty(arr) {
@@ -59,4 +57,6 @@ if (cmd[0] === '--filter' || cmd[0] === 'filter') {
     filter(cmd[1])
 } else if (cmd[0] === '--count' || cmd[0] === 'count') {
     count()
+} else {
+    console.log('Wrong arguments')
 }
